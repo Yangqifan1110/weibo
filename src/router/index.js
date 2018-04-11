@@ -11,7 +11,7 @@ import commonBottom from '@/components/customer/commonBottom'
 import manage from '@/components/management/manage'
 import main from '@/components/management/main'
 import table from '@/components/management/table'
-
+import select from '@/components/management/select'
 
 
 Vue.use(Router)
@@ -50,6 +50,9 @@ export default new Router({
         },{
           path:'/manage/table',
           component:table
+        },{
+          path:'/manage/select',
+          component:select
         }
       ]
     }
