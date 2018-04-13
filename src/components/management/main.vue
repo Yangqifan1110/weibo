@@ -7,10 +7,15 @@
 
     <div class="banner">
       <div class="bannerLeft"  >
-        <h1 >微博记录数:{{totalList.count}}</h1>
-        <h1>每条微博的平均内存大小:{{totalList.avgSize}}</h1>
-        <h1>当前分配的内存大小:{{totalList.storageSize}}</h1>
-        <h1>索引大小:{{totalList.totalIndexSize}}</h1>
+
+
+        <h1><span>数据库数目</span><span>{{totalList.okCount}}</span></h1>
+        <h1><span>运行中数据库</span><span>{{totalList.serverCount}}</span></h1>
+        <h1><span>微博记录总数</span><span>{{totalList.count.toString().replace(/(\d)(?=(?:\d{3})+$)/g,'$1,') }}</span></h1>
+        <h1><span>记录存储容量</span><span>{{ (totalList.size/1073741824).toFixed(4)}}GB</span></h1>
+        <h1><span>记录索引容量</span><span>{{ (totalList.totalIndexSize/1073741824).toFixed(4)}}GB </span></h1>
+        <h1><span>记录平均容量</span><span>{{ (totalList.size/1073741824/4).toFixed(4)}}GB</span></h1>
+
 
       </div>
 
@@ -22,11 +27,11 @@
               <el-carousel-item v-for="(item,index) in dataList" :key="index" class="goList" >
 
                   <h1><span>IP地址</span><span>{{item.host.host}}</span></h1>
-                  <h1 ><span></span><span></span>微博记录数:{{item.count}}</h1>
-                  <h1>每条微博的平均内存大小:{{item.avgSize}}</h1>
-                  <h1>当前分配的内存大小:{{item.storageSize}}</h1>
-                  <h1>索引大小:{{item.totalIndexSize}}</h1>
-                  <h1>数据库状态:{{item.status}}</h1>
+                  <h1 ><span>微博记录总数</span><span>{{item.count.toString().replace(/(\d)(?=(?:\d{3})+$)/g,'$1,')}}</span></h1>
+                  <h1><span>记录存储容量</span><span>{{ (item.size/1073741824).toFixed(4)}}GB</span></h1>
+                  <h1><span>记录索引容量</span><span>{{(item.totalIndexSize /1073741824).toFixed(4)}}GB</span></h1>
+                  <h1><span>磁盘剩余空间</span><span>{{(item.diskLeft/1073741824).toFixed(4)}}GB</span></h1>
+                  <h1><span>磁盘占用率:</span><span>{{((item.diskAll-item.diskLeft)/item.diskAll*100).toFixed(2)}}%</span></h1>
               </el-carousel-item>
             </el-carousel>
           </div>
@@ -38,7 +43,7 @@
       <ul>
         <li v-for='fourdata in dataList'>
           <div class="text" >
-            <p class="ttitle">数据量(字节)</p>
+            <p class="ttitle">记录存储容量</p>
             <p class="big">{{(fourdata.size/1073741824).toFixed(4)}}Gb</p>
             <p class="ttitle">IP地址</p>
             <p>{{fourdata.host.host}}</p>
@@ -88,102 +93,37 @@ computed : {
   			},
 
   		},
+creat(){
+      //  setInterval('this.getTot()',1000)
+      },
 mounted(){
 
       var token = this.getToken;//获取token
 
 
-  //     axios.all([
-  //       axios.get('http://10.90.6.251:8081//api/statistics/splited',{
-  //             headers : {
-  //           "token" : token,
-  //         }//发送请求多主机分开查询
-  //           }),
-  //       axios.get('http://10.90.6.251:8081/api/statistics/total',{
-  //             headers : {
-  //           "token" : token,
-  //         }//发送请求多主机分开查询
-  //           }),
-  //       axios.get('http://10.90.6.251:8081/api/statistics/disk',{
-  //             headers : {
-  //           "token" : token,
-  //         }//发送请求多主机分开查询
-  //           })
-  // ])
-  //
-  // .then((res)=>{
-  //   axios.spread(function (res1, res2,res3) {
-  //
-  //   // 上面两个请求都完成后，才执行这个回调方法
-  //
-  //   console.log(res1);
-  //           this.dataList= res1.data.data;//得到数据
-  //           // this.mongoDB1=(res1.data.data[0].size/1073741824);
-  //           // this.mongoDB2=(res1.data.data[1].size/1073741824);
-  //           // this.mongoDB3=(res1.data.data[2].size/1073741824);
-  //           // this.mongoDB4=(res1.data.data[3].size/1073741824);
-  //           // // console.log(this.dataList)
-  //           // this.all=this.mongoDB1+this.mongoDB2+this.mongoDB3+this.mongoDB4;//计算总和
-  //           // // console.log(this.all)
-  //           // this.rowChart()//图表挂载放在then里
-  //   console.log(res2);
-  //           // this.totalList=res2.data.data;//得到数据
-  //   console.log(res3);
-  //           // this.diskList=res3.data.data;//得到数据
-  //           // // console.log(this.diskList)
-  //
-  //        // this.drawLine()//图表挂载放在then里
-  //
-  // })
-  //     // .catch(()=>{
-  //     //   this.$message.error({message: '获取失败'});
-  //     // });
-
-
-      // 1
+  // 1
       axios.get('http://10.90.6.251:8081//api/statistics/splited',{
         headers : {
       "token" : token,
     },//发送请求多主机分开查询
       })
-      .then((res)=>{
-        // console.log(res)
-          this.dataList=res.data.data;//得到数据
-          this.mongoDB1=(res.data.data[0].size/1073741824);
-          this.mongoDB2=(res.data.data[1].size/1073741824);
-          this.mongoDB3=(res.data.data[2].size/1073741824);
-          this.mongoDB4=(res.data.data[3].size/1073741824);
+      .then((res1)=>{
+        // console.log(res1)
+          this.dataList=res1.data.data;//得到数据
+          this.mongoDB1=(res1.data.data[0].size/1073741824);
+          this.mongoDB2=(res1.data.data[1].size/1073741824);
+          this.mongoDB3=(res1.data.data[2].size/1073741824);
+          this.mongoDB4=(res1.data.data[3].size/1073741824);
           // console.log(this.dataList)
           this.all=this.mongoDB1+this.mongoDB2+this.mongoDB3+this.mongoDB4;//计算总和
           // console.log(this.all)
           this.rowChart()//图表挂载放在then里
   })
       .catch(()=>{
-        this.$message.error({message: '获取失败'});
+        // this.$message.error({message: '获取失败'});
       });
 
-    // 2
-    //计时发送的方法
-    setInterval(function(){
-      axios.get('http://10.90.6.251:8081/api/statistics/total',{
-        headers : {
-      "token" : token,
-    },//发送请求总量查询
-      })
-      .then((res)=>{
-          this.totalList=res.data.data//得到数据
-          //Vue.set(this.totalList,avgSize,res.data.data.avgSize);
-         //  var len = this.totalList.length;
-         //  console.log(len)
-         // Vue.set(this.totalList,len,res.data.data);
-          console.log(this.totalList)
-        })
-      .catch(()=>{
-        // this.$message({message: '获取失败111'});
-        // console.log(res)
-      });
 
-    },2000)
 
    //发送一次的方法
       axios.get('http://10.90.6.251:8081/api/statistics/total',{
@@ -191,9 +131,9 @@ mounted(){
       "token" : token,
     },//发送请求总量查询
       })
-      .then((res)=>{
-          this.totalList=res.data.data;//得到数据
-          console.log(this.totalList)
+      .then((res2)=>{
+          this.totalList=res2.data.data;//得到数据
+          //console.log(this.totalList)
         })
       .catch(()=>{
         this.$message.error({message: '获取失败'});
@@ -201,21 +141,21 @@ mounted(){
 
 
 
-    // 3
-    //   axios.get('http://10.90.6.251:8081/api/statistics/disk',{
-    //     headers : {
-    //   "token" : token,
-    // },//发送磁盘占用率查询
-    //   })
-    //   .then((res)=>{
-    //       this.diskList=res.data.data;//得到数据
-    //       // console.log(this.diskList)
-    //
-    //       this.drawLine()//图表挂载放在then里
-    //     })
-    //   .catch(()=>{
-    //     this.$message.error({message: '获取失败'});
-    //   });
+  //  3
+      axios.get('http://10.90.6.251:8081/api/statistics/disk',{
+        headers : {
+      "token" : token,
+    },//发送磁盘占用率查询
+      })
+      .then((res3)=>{
+          this.diskList=res3.data.data;//得到数据
+          // console.log(this.diskList)
+
+          this.drawLine()//图表挂载放在then里
+        })
+      .catch(()=>{
+        this.$message.error({message: '获取失败'});
+      });
 
 
     //下一步
@@ -233,18 +173,82 @@ mounted(){
     //   .catch(()=>{
     //     // this.$message.error({message: '获取失败'});
     //   });
-    setInterval(function(){console.log(this.totalList)},6000)
 
+
+    //计时发送的方法
+    //1
+    setInterval(()=>{
+      axios.get('http://10.90.6.251:8081//api/statistics/splited',{
+        headers : {
+      "token" : token,
+    },//发送请求多主机分开查询
+      })
+      .then((res1)=>{
+        // console.log(res1)
+          this.dataList=res1.data.data;//得到数据
+          this.mongoDB1=(res1.data.data[0].size/1073741824);
+          this.mongoDB2=(res1.data.data[1].size/1073741824);
+          this.mongoDB3=(res1.data.data[2].size/1073741824);
+          this.mongoDB4=(res1.data.data[3].size/1073741824);
+          // console.log(this.dataList)
+          this.all=this.mongoDB1+this.mongoDB2+this.mongoDB3+this.mongoDB4;//计算总和
+          // console.log(this.all)
+          this.rowChart()//图表挂载放在then里
+  })
+      .catch(()=>{
+        // this.$message.error({message: '获取失败'});
+      });
+} ,3000)
+
+
+
+    //2
+    setInterval(()=>{
+      axios.get('http://10.90.6.251:8081/api/statistics/total',{
+        headers : {
+      "token" : token,
+    },//发送请求总量查询
+      })
+      .then((res2)=>{
+          this.totalList=res2.data.data//得到数据
+          //console.log(this.totalList)
+        })
+      .catch(()=>{
+        //this.$message({message: '获取失败111'});
+
+      });
+} ,1500)
+
+
+  //3
+setInterval(()=>{
+  axios.get('http://10.90.6.251:8081/api/statistics/disk',{
+    headers : {
+  "token" : token,
+},//发送磁盘占用率查询
+  })
+  .then((res3)=>{
+      this.diskList=res3.data.data;//得到数据
+      // console.log(this.diskList)
+
+      this.drawLine()//图表挂载放在then里
+    })
+  .catch(()=>{
+    //this.$message.error({message: '获取失败'});
+  });
+} ,30000)
 
     },
     methods: {
-      drawLine(){
+
+
+    drawLine(){
               // 基于准备好的dom，初始化echarts实例
               let myChart = this.$echarts.init(document.getElementById('myChart'))
               // 绘制图表
               myChart.setOption( {
     title : {
-        text: '磁盘内存占用率，单位Gb',
+        text: '磁盘内存占用率，单位GB',
     },
     tooltip : {
         trigger: 'axis'
@@ -338,7 +342,7 @@ mounted(){
     legend: {
         orient : 'vertical',
         x : 'left',
-        data:['mongoDB1','mongoDB2','mongoDB3','mongoDB4']
+        data:['222.27.227.104','222.27.227.107','222.27.227.110','222.27.227.113']
     },
     toolbox: {
         show : true,
@@ -369,14 +373,15 @@ mounted(){
             radius : '55%',
             center: ['50%', '60%'],
             data:[
-                {value:this.mongoDB1.toFixed(4), name:'mongoDB1'},
-                {value:this.mongoDB2.toFixed(4), name:'mongoDB2'},
-                {value:this.mongoDB3.toFixed(4), name:'mongoDB3'},
-                {value:this.mongoDB4.toFixed(4), name:'mongoDB4'},
+                {value:this.mongoDB1.toFixed(4), name:'222.27.227.104'},
+                {value:this.mongoDB2.toFixed(4), name:'222.27.227.107'},
+                {value:this.mongoDB3.toFixed(4), name:'222.27.227.110'},
+                {value:this.mongoDB4.toFixed(4), name:'222.27.227.113'},
 
             ]
         }
-    ]
+    ],
+      color: ['rgb(243,106,90)','rgb(48,165,255)','rgb(26,188,156)','rgb(250,190,40)']
 }
 
 
@@ -396,10 +401,13 @@ mounted(){
 .title:after{content: 'Data Presentation'; color:#ccc; font-size: 16px; margin-left: 20px;}
 .banner{ width: 100%; height: 250px;  margin-top: 20px}
 .banner .bannerLeft{width: 40%; border: 1px solid #ccc; height: 250px; float: left;background: #fff;}
+.banner .bannerLeft h1{ height: 41.6px; line-height: 41.6px}
+.banner .bannerLeft h1 span{display: inline-block; width: 50%; border: 1px solid #ccc;box-sizing: border-box; height: 40px; line-height: 40px;}
+.banner .bannerLeft h1:nth-child(2n+1){background: #F6F8FA}
 .banner .bannerRight{width:58%; height: 250px; border: 1px solid #ccc; float: right;background: #fff;}
 .con1{ width: 100%; height: 100px; margin-top: 20px;}
 
-.con1 ul li{ height: 70px; width: 20.75%; background: #fff;float: left; padding: 1%; text-align: left;}
+.con1 ul li{ height: 80px; width: 20.75%; background: #fff;float: left; padding:6px 1%; text-align: left;}
 .con1 ul li:nth-child(1) .chart{background: #F36A5A}
 .con1 ul li:nth-child(2){margin: 0 3%;}
 .con1 ul li:nth-child(2) .chart{background: #30A5FF}
@@ -423,8 +431,14 @@ mounted(){
 .go .goList:nth-child(4) .goTop { border-bottom: 3px solid #30A5FF;}
 .go .goList:nth-child(5) .goTop { border-bottom: 3px solid #1ABC9C;}
 .go .goList:nth-child(6) .goTop { border-bottom: 3px solid #FABE28;}
+.go .goList h1 span{display: inline-block; width: 50%; border: 1px solid #ccc;box-sizing: border-box; height: 41.6px; line-height: 41.6px;}
+.go .goList h1:nth-child(2n){background: #F6F8FA}
+ul.el-carousel__indicators li:nth-child(1) button{ background: #F36A5A; }
+ul.el-carousel__indicators li:nth-child(2) button{ background: #30A5FF; }
+ul.el-carousel__indicators li:nth-child(3) button{ background: #1ABC9C; }
+ul.el-carousel__indicators li:nth-child(4) button{ background: #FABE28; }
 .el-carousel__item:nth-child(2n) {
-    background-color: #ccc;
+    background-color: #eee;
  }
 
  .el-carousel__item:nth-child(2n+1) {
