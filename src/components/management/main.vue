@@ -44,7 +44,7 @@
         <li v-for='fourdata in dataList'>
           <div class="text" >
             <p class="ttitle">记录存储容量</p>
-            <p class="big">{{(fourdata.size/1073741824).toFixed(4)}}Gb</p>
+            <p class="big">{{(fourdata.size/1073741824).toFixed(4)}}GB</p>
             <p class="ttitle">IP地址</p>
             <p>{{fourdata.host.host}}</p>
 
@@ -198,7 +198,7 @@ mounted(){
       .catch(()=>{
         // this.$message.error({message: '获取失败'});
       });
-} ,3000)
+} ,1000)
 
 
 
@@ -217,7 +217,7 @@ mounted(){
         //this.$message({message: '获取失败111'});
 
       });
-} ,1500)
+} ,1000)
 
 
   //3
@@ -236,7 +236,7 @@ setInterval(()=>{
   .catch(()=>{
     //this.$message.error({message: '获取失败'});
   });
-} ,30000)
+} ,1000)
 
     },
     methods: {
