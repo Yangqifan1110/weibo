@@ -2,7 +2,7 @@
 
 
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="4rem">
         <div class="logo">
           <h1>微博后台管理系统</h1>
      </div>
@@ -25,10 +25,10 @@ export default {
 
 <style lang="css" scoped>
 
- .logo{width: 200px; height: 60px; background: #F36A5A}
- .logo h1{ color: #fff; height: 60px; line-height: 60px; font-size: 22px;}
-aside{ background: #3E3E3E; height:1080px;position: fixed; z-index: 5; top: 0}
-aside a{font-size: 14px;display: block; height: 45px; line-height: 45px; border-bottom: 1px solid #474747;color: #B8B8B8; text-decoration: none}
+ .logo{width: 4rem; height: 1.2rem; background: #F36A5A}
+ .logo h1{ color: #fff; height: 1.2rem; line-height: 1.2rem; font-size: 0.45rem;}
+aside{ background: #3E3E3E; height:200rem;position: fixed; z-index: 5; top: 0}
+aside a{font-size: 0.3rem;display: block; height: 1rem; line-height: 1rem; border-bottom: 1px solid #474747;color: #B8B8B8; text-decoration: none}
 main{background: #EDEDED; position: absolute;; bottom: 0; right: 0; left: 0; top: 0}
 .router-link-active{ background: #EDEDED;color: #F36A5A}
 

@@ -23,7 +23,7 @@
       <div class="bannerRight">
         <div class="block">
             <span class="demonstration"></span>
-            <el-carousel trigger="click" height="250px"  class="go">
+            <el-carousel trigger="click" height="5rem"  class="go">
               <el-carousel-item v-for="(item,index) in dataList" :key="index" class="goList" >
 
                   <h1><span>IP地址</span><span>{{item.host.host}}</span></h1>
@@ -56,10 +56,10 @@
     </div>
     <div class="con2">
       <div class="con2Left">
-        <div id="myChart" :style="{width: '100%', height: '300px',}"></div>
+        <div id="myChart" :style="{width: '100%', height: '6rem',}"></div>
       </div>
       <div class="con2Right">
-        <div id="pie" :style="{width: '100%', height: '300px',}"></div>
+        <div id="pie" :style="{width: '100%', height: '6rem',}"></div>
       </div>
     </div>
 
@@ -91,17 +91,17 @@ computed : {
   		 			else
   		  				return "";//获取token
   			},
+        gotString: function(){
+          return
+        }
 
   		},
-creat(){
-      //  setInterval('this.getTot()',1000)
-      },
 mounted(){
 
       var token = this.getToken;//获取token
 
 
-  // 1
+  // 1用于第一次快速加载
       axios.get('http://10.90.6.251:8081//api/statistics/splited',{
         headers : {
       "token" : token,
@@ -125,7 +125,7 @@ mounted(){
 
 
 
-   //发送一次的方法
+   //2
       axios.get('http://10.90.6.251:8081/api/statistics/total',{
         headers : {
       "token" : token,
@@ -136,7 +136,7 @@ mounted(){
           //console.log(this.totalList)
         })
       .catch(()=>{
-        this.$message.error({message: '获取失败'});
+      //  this.$message.error({message: '获取失败'});
       });
 
 
@@ -154,25 +154,11 @@ mounted(){
           this.drawLine()//图表挂载放在then里
         })
       .catch(()=>{
-        this.$message.error({message: '获取失败'});
+      //  this.$message.error({message: '获取失败'});
       });
 
 
-    //下一步
-    //   axios.get('http://10.90.6.251:8081/api/statistics/mem',{
-    //     headers : {
-    //   "token" : token,
-    // },//发送内存使用情况
-    //   })
-    //   .then((res)=>{
-    //       this.memList=res.data.data;//得到数据
-    //       // console.log(this.memList);
-    //
-    //
-    //     })
-    //   .catch(()=>{
-    //     // this.$message.error({message: '获取失败'});
-    //   });
+
 
 
     //计时发送的方法
@@ -270,7 +256,7 @@ setInterval(()=>{
     xAxis : [
         {
             type : 'category',
-            data : ['主机1','主机2','主机3','主机4']
+            data : ['222.27.227.104','222.27.227.107','222.27.227.110','222.27.227.113']
         }
     ],
     yAxis : [
@@ -392,38 +378,38 @@ setInterval(()=>{
 }
 </script>
 
-<style lang="css">
-.main{ padding:10px 10px 10px 210px;}
-.head{ height: 20px;}
-.title{ text-align: left;font-size: 20px; height: 20px; float: left;}
-.title2{ float: right;font-size: 20px; height: 20px}
-.title2:before{content: '当前总数据量：';color:#ccc; font-size: 16px; margin-right: 10px; }
-.title:after{content: 'Data Presentation'; color:#ccc; font-size: 16px; margin-left: 20px;}
-.banner{ width: 100%; height: 250px;  margin-top: 20px}
-.banner .bannerLeft{width: 40%; border: 1px solid #ccc; height: 250px; float: left;background: #fff;}
-.banner .bannerLeft h1{ height: 41.6px; line-height: 41.6px}
-.banner .bannerLeft h1 span{display: inline-block; width: 50%; border: 1px solid #ccc;box-sizing: border-box; height: 40px; line-height: 40px;}
+<style lang="css" scoped>
+.main{ padding:0.2rem 0.2rem 0.2rem 4.2rem;}
+h1{font-size: 0.4rem; font-weight: 300}
+.head{ height: 0.5rem;}
+.title{ text-align: left;font-size: 0.5rem; height: 0.5rem; float: left;}
+.title2{ float: right;font-size: 0.5rem; height: 0.5rem}
+.title:after{content: 'Data Presentation'; color:#ccc; font-size: 0.4rem; margin-left: 0.5rem;}
+.banner{ width: 100%; height: 5rem;  margin-top: 0.5rem}
+.banner .bannerLeft{width: 40%; border: 1px solid #ccc; height: 5rem; float: left;background: #fff;}
+.banner .bannerLeft h1{ height: 0.84rem; line-height: 0.84rem}
+.banner .bannerLeft h1 span{display: inline-block; width: 50%; border: 1px solid #ccc;box-sizing: border-box; height: 0.8rem; line-height: 0.8rem;}
 .banner .bannerLeft h1:nth-child(2n+1){background: #F6F8FA}
-.banner .bannerRight{width:58%; height: 250px; border: 1px solid #ccc; float: right;background: #fff;}
-.con1{ width: 100%; height: 100px; margin-top: 20px;}
+.banner .bannerRight{width:58%; height: 5rem; border: 1px solid #ccc; float: right;background: #fff;}
+.con1{ width: 100%; height: 2rem; margin-top: 0.5rem;}
 
-.con1 ul li{ height: 80px; width: 20.75%; background: #fff;float: left; padding:6px 1%; text-align: left;}
+.con1 ul li{ height: 1.8rem; width: 20.75%; background: #fff;float: left; padding:0.1rem 1%; text-align: left;}
 .con1 ul li:nth-child(1) .chart{background: #F36A5A}
 .con1 ul li:nth-child(2){margin: 0 3%;}
 .con1 ul li:nth-child(2) .chart{background: #30A5FF}
 .con1 ul li:nth-child(3){margin-right: 3%;}
 .con1 ul li:nth-child(3) .chart{background: #1ABC9C}
 .con1 ul li:nth-child(4) .chart{background: #FABE28}
-/* .con1 ul li p{font-size: 16px; height: 16px} */
+/* .con1 ul li p{font-size: 0.2rem; height: 0.2rem} */
 .con1 ul li .text{float: left; width: 80%}
 .con1 ul li .chart{float: right; width: 20%; height: 100%; background: #0f0}
 .con1 ul li .ttitle{ text-align: left; color:#ccc}
-.con1 ul li .big{font-size: 18px; line-height: 18px;}
+.con1 ul li .big{font-size: 0.35rem; line-height: 0.35rem;}
 
 
-.con2{width: 100%; height: 250px;  margin-top: 10px}
-.con2 .con2Left{ width: 59%; height: 300px;border: 1px solid #ccc; float: left; background: #fff}
-.con2 .con2Right{ width: 39%; height: 300px;border: 1px solid #ccc; float: right;background: #fff}
+.con2{width: 100%; height: 5rem;  margin-top: 0.2rem}
+.con2 .con2Left{ width: 59%; height: 6rem;border: 1px solid #ccc; float: left; background: #fff}
+.con2 .con2Right{ width: 39%; height: 6rem;border: 1px solid #ccc; float: right;background: #fff}
 
 
 
@@ -431,7 +417,7 @@ setInterval(()=>{
 .go .goList:nth-child(4) .goTop { border-bottom: 3px solid #30A5FF;}
 .go .goList:nth-child(5) .goTop { border-bottom: 3px solid #1ABC9C;}
 .go .goList:nth-child(6) .goTop { border-bottom: 3px solid #FABE28;}
-.go .goList h1 span{display: inline-block; width: 50%; border: 1px solid #ccc;box-sizing: border-box; height: 41.6px; line-height: 41.6px;}
+.go .goList h1 span{display: inline-block; width: 50%; border: 1px solid #ccc;box-sizing: border-box; height: 0.84rem; line-height: 0.84rem;}
 .go .goList h1:nth-child(2n){background: #F6F8FA}
 ul.el-carousel__indicators li:nth-child(1) button{ background: #F36A5A; }
 ul.el-carousel__indicators li:nth-child(2) button{ background: #30A5FF; }

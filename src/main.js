@@ -8,14 +8,15 @@ import router from './router'
 import './assets/css/reset.css'
 import axios from 'axios'
 import echarts from 'echarts'
+import './assets/js/rem.js'
 
-Vue.prototype.$echarts = echarts 
+Vue.prototype.$echarts = echarts
 
 Vue.use(ElementUI);
 
-// Vue.use(axios)
-// Vue.prototype.$axios = axios
-// axios.defaults.baseURL="http://10.90.6.251:8081"
+Vue.use(axios)
+Vue.prototype.$axios = axios
+axios.defaults.baseURL="http://10.90.6.251:8081"
 
 Vue.config.productionTip = false
 
