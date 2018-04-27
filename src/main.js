@@ -10,6 +10,7 @@ import axios from 'axios'
 import echarts from 'echarts'
 import './assets/js/rem.js'
 
+
 Vue.prototype.$echarts = echarts
 
 Vue.use(ElementUI);
