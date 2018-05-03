@@ -57,5 +57,5 @@ export default new Router({
       ]
     }
   ],
-  	mode : "history"	// 去掉地址栏的#号
+  //	mode : "history"	// 去掉地址栏的#号
 })

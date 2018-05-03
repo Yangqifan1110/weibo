@@ -46,7 +46,7 @@
      type="date"
      placeholder="结束日期">
    </el-date-picker>
-   <el-button @click='search()' type="danger" icon="el-icon-search" class="btn"  size="small">搜索</el-button>
+   <el-button @click='search()' type="danger" icon="el-icon-search" class="btnSerch"  size="small">搜索</el-button>
 
    <span class="span1">微博数:{{number.weibo}}</span>
    <span class="span2">用户数:{{number.user}}</span>
@@ -56,7 +56,14 @@
     <div class="rightCon">
       <ul>
         <li v-for='rec in records'>
-          {{rec.content}}
+
+          <p v-html='rec.content'></p>
+          <!-- {{rec.content}} -->
+          <div class="desc">
+            <span>设备：{{rec.device}}</span>
+            <span>时间：{{rec.time}}</span>
+          </div>
+
         </li>
       </ul>
       <el-button-group class="bottomBtn">
@@ -151,7 +158,7 @@ export default {
     })
     .then((res)=>{
         this.records=res.data.data.list;//得到数据
-        //console.log(res)
+        console.log(res)
 
       })
     .catch(()=>{
@@ -281,17 +288,19 @@ h1{font-size: 0.4rem; font-weight: 300}
 
 
 .right{float: left; width: 74%; border: 1px solid #ccc;height: 14rem;margin-top: 0.5rem;box-sizing: border-box; background: #fff}
-.right .rightTop{height: 1rem; border: 1px solid #ccc;background: #ccc;  }
+.right .rightTop{height: 1rem; border: 1px solid #ccc; background: #ccc;  }
 .right .rightTop .name{width: 15%; height: 100%}
 .right .rightTop .from{width: 20%;height: 100%}
 .right .rightTop .to{width: 20%;height: 100%}
-.right .rightTop .btn{width: 10%;height: 100%}
+.right .rightTop .btnSerch{width: 10%;height: 100%}
 .right .rightTop .span1{width: 13%;display: inline-block;height: 100%;font-size: 0.2rem}
 .right .rightTop .span2{width: 13%;display: inline-block;height: 100%;font-size: 0.2rem}
 
 
 .right .rightCon{ height:13rem; width: 100% }
-.right .rightCon li{border: 1px solid #ccc; height: 1.2rem;overflow: hidden;text-overflow: ellipsis;text-align: left;line-height: 0.6rem;padding-left: 0.2rem;padding-right: 0.2rem}
+.right .rightCon li{border: 1px solid #ccc; height: 1.2rem;text-overflow: ellipsis;text-align: left;line-height: 0.5rem;padding-left: 0.2rem;padding-right: 0.2rem}
+.right .rightCon li p{ height: 1rem;overflow: hidden;}
+.right .rightCon li .desc{height: 0.2rem;line-height: 0.2rem}
 .right .rightCon ul{height:11.8rem; width: 100% }
 .right .rightCon .bottomBtn{  }
 </style>

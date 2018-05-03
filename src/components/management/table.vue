@@ -268,7 +268,7 @@ setInterval(()=>{
               // 绘制图表
               myChart.setOption({
     title : {
-        text: '最近七日数据增量(亿条)',
+        text: '最近七日数据增量(万条)',
     },
     tooltip : {
         trigger: 'axis'
@@ -306,7 +306,7 @@ setInterval(()=>{
         {
             type : 'value',
             axisLabel : {
-                formatter: '{value} 亿'
+                formatter: '{value} 万'
             }
         }
     ],
@@ -315,13 +315,13 @@ setInterval(()=>{
             name:'数据量',
             type:'line',
             data:[
-              (this.sevenday[0].count/100000000).toFixed(2),
-              (this.sevenday[1].count/100000000).toFixed(2),
-              (this.sevenday[2].count/100000000).toFixed(2),
-              (this.sevenday[3].count/100000000).toFixed(2),
-              (this.sevenday[4].count/100000000).toFixed(2),
-              (this.sevenday[5].count/100000000).toFixed(2),
-              (this.sevenday[6].count/100000000).toFixed(2)
+              (this.sevenday[0].count/10000).toFixed(2),
+              (this.sevenday[1].count/10000).toFixed(2),
+              (this.sevenday[2].count/10000).toFixed(2),
+              (this.sevenday[3].count/10000).toFixed(2),
+              (this.sevenday[4].count/10000).toFixed(2),
+              (this.sevenday[5].count/10000).toFixed(2),
+              (this.sevenday[6].count/10000).toFixed(2)
             ],
             markPoint : {
                 data : [
