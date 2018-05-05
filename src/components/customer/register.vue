@@ -19,25 +19,25 @@ export default {
   },methods : {
 			postRegister : function () {
 				if (this.username == "" || this.password == "") {
-						this.$message.error({message: '不能'});
+						this.$message.error({message: '内容不能为空'});
 					return ;
 				}
 				if (this.password != this.repassword) {
-					$.toast("密码和确认密码必须相同");
+					this.$message.error({message: '确认两次输入一致'});
 					return ;
 				}
 
-				axios.post("/user/register", {
+				axios.post("http://10.90.6.251:8081/api/user/register", {
 					username : this.username,
 					password : this.password
 				}).then(function (response) {
 
 					console.log(response)
 					if (response.data.code == 0) {
-						$.toast("注册成功")
+							this.$message({message: '注册成功'});
 					}
 					else {
-						$.toast(response.data.message);
+						this.$message.error({message: '获取失败'});
 					}
 				})
 			}

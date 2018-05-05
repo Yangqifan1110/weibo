@@ -61,7 +61,7 @@
           <!-- {{rec.content}} -->
           <div class="desc">
             <span>设备：{{rec.device}}</span>
-            <span>时间：{{rec.time}}</span>
+            <span>时间：{{new Date(rec.time)}}</span>
           </div>
 
         </li>
@@ -105,6 +105,7 @@ export default {
     		 			else
     		  				return "";//获取token
     			},
+
 
 
     		},
@@ -168,6 +169,9 @@ export default {
 
   },
   methods:{
+
+
+
     pageAfter(){
       var token = this.getToken;//获取token
       this.pageNum++;
@@ -300,7 +304,7 @@ h1{font-size: 0.4rem; font-weight: 300}
 .right .rightCon{ height:13rem; width: 100% }
 .right .rightCon li{border: 1px solid #ccc; height: 1.2rem;text-overflow: ellipsis;text-align: left;line-height: 0.5rem;padding-left: 0.2rem;padding-right: 0.2rem}
 .right .rightCon li p{ height: 1rem;overflow: hidden;}
-.right .rightCon li .desc{height: 0.2rem;line-height: 0.2rem}
+.right .rightCon li .desc{height: 0.2rem;line-height: 0.2rem; text-align: right; color: #aaa}
 .right .rightCon ul{height:11.8rem; width: 100% }
 .right .rightCon .bottomBtn{  }
 </style>

@@ -9,6 +9,11 @@
         <router-link to="/manage/main">集群数据量监控</router-link>
         <router-link to="/manage/table">爬虫监控</router-link>
         <router-link to="/manage/select">集群数据检索</router-link>
+
+        <div class="bottom">
+          <router-link to="/customer/alter"><i class="el-icon-setting">修改密码</i></router-link>
+          <router-link to="/customer/cancle"><i class="el-icon-delete">用户注销</i></router-link>
+        </div>
       </el-aside>
       <el-main>
 
@@ -29,6 +34,7 @@ export default {
  .logo h1{ color: #fff; height: 1.2rem; line-height: 1.2rem; font-size: 0.45rem;}
 aside{ background: #3E3E3E; height:200rem;position: fixed; z-index: 5; top: 0}
 aside a{font-size: 0.2rem;display: block; height: 1rem; line-height: 1rem; border-bottom: 1px solid #474747;color: #B8B8B8; text-decoration: none}
+aside .bottom{ margin-top: 9rem}
 main{background: #EDEDED; position: absolute;; bottom: 0; right: 0; left: 0; top: 0}
 .router-link-active{ background: #EDEDED;color: #F36A5A}
 
